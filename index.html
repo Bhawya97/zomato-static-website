@@ -1,41 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Zomato Clone</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zomato Clone — Interactive Demo</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Zomato 🍽️</div>
-      <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Explore</a></li>
-        <li><a href="#">Login</a></li>
-      </ul>
-    </nav>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="logo" tabindex="0">Z<span>o</span>mato</div>
+
+      <div class="search" role="search" aria-label="Search restaurants">
+        <input id="searchInput" type="search" placeholder="Search restaurants, cuisines or dishes..." aria-label="Search field">
+        <button id="searchBtn" aria-label="Search">Search</button>
+      </div>
+
+      <nav class="actions" aria-label="Top actions">
+        <select id="sortSelect" aria-label="Sort restaurants">
+          <option value="popular">Sort: Popular</option>
+          <option value="rating">Sort: Rating (high→low)</option>
+          <option value="price_low">Price (low→high)</option>
+          <option value="price_high">Price (high→low)</option>
+          <option value="name">Name (A→Z)</option>
+        </select>
+        <button id="favoritesBtn" class="ghost" aria-haspopup="dialog">♥ Favourites</button>
+      </nav>
+    </div>
   </header>
 
   <section class="hero">
-    <div class="hero-text">
-      <h1>Discover the best food & drinks in your city</h1>
-      <p>Order now from your favorite local restaurants.</p>
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search for restaurant, cuisine or dish..." />
-        <button onclick="search()">Search</button>
+    <div class="container hero-inner">
+      <h1>Discover the best food & restaurants near you</h1>
+      <p>Explore top restaurants, menus, reviews — order or reserve in seconds.</p>
+
+      <div class="hero-search">
+        <input id="heroLocation" placeholder="City or postal code" aria-label="Location">
+        <button id="findBtn">Find Food</button>
       </div>
     </div>
   </section>
 
-  <section class="restaurants" id="restaurantList">
-    <!-- JavaScript will populate restaurant cards here -->
-  </section>
+  <main class="container main" id="main">
+    <aside class="filters" aria-label="Filters">
+      <h3>Filters</h3>
 
-  <footer>
-    <p>Made with ❤️ for DevOps CI/CD Learning | Zomato Clone © 2025</p>
+      <label>Price
+        <select id="priceFilter">
+          <option value="any">Any</option>
+          <option value="1">$</option>
+          <option value="2">$$</option>
+          <option value="3">$$$</option>
+        </select>
+      </label>
+
+      <label>Cuisine
+        <select id="cuisineFilter">
+          <option value="any">Any</option>
+          <option value="italian">Italian</option>
+          <option value="indian">Indian</option>
+          <option value="chinese">Chinese</option>
+          <option value="thai">Thai</option>
+          <option value="american">American</option>
+          <option value="fusion">Fusion</option>
+        </select>
+      </label>
+
+      <label>Min Rating
+        <input id="minRating" type="range" min="0" max="5" step="0.5" value="0">
+        <div id="ratingValue">0+</div>
+      </label>
+
+      <div class="filter-actions">
+        <button id="applyFilters">Apply</button>
+        <button id="resetFilters" class="ghost">Reset</button>
+      </div>
+    </aside>
+
+    <section class="listings" aria-live="polite">
+      <div class="listings-header">
+        <h2 id="resultsTitle">Popular near you</h2>
+        <div id="controls">
+          <div id="resultsCount">0 results</div>
+          <div class="pagination">
+            <button id="prevPage" class="ghost" aria-label="Previous page">◀</button>
+            <span id="pageInfo">1</span>
+            <button id="nextPage" class="ghost" aria-label="Next page">▶</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="cards" class="cards-grid" tabindex="0">
+        <!-- injected -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© 2025 Zomato-Clone Interactive Demo</div>
+      <div class="footer-links">
+        <a href="#" tabindex="0">About</a>
+        <a href="#" tabindex="0">Help</a>
+        <a href="#" tabindex="0">Terms</a>
+      </div>
+    </div>
   </footer>
+
+  <!-- Modal for details / favourites -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true" aria-modal="true">
+    <div class="modal-content" role="document">
+      <button id="modalClose" class="modal-close" aria-label="Close">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
