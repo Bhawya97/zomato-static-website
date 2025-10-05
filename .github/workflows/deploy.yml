@@ -25,7 +25,7 @@ jobs:
       - name: Prepare build folder
         run: |
           mkdir build
-          cp index.html styles.css app.js build/ || true
+          cp index.html styles.css app.js build/
 
       - name: Upload static website artifact
         uses: actions/upload-pages-artifact@v3
@@ -33,6 +33,7 @@ jobs:
           path: build/
 
   deploy:
+    name: Deploy website by Bhawya
     needs: build
     runs-on: ubuntu-latest
 
@@ -47,4 +48,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
